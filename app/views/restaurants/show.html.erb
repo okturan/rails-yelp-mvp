@@ -16,9 +16,29 @@
 </p>
 
 <p>
+  <strong>Reviews:</strong>
+  <% @restaurant.reviews.each do |review| %>
+  <ul>
+    <li>
+      <p><%= review.content %></p>
+      <p><%= review.rating %> stars</p>
+    </li>
+  </ul>
+  <% end %>
+</p>
+
+<p>
   <strong>Category:</strong>
   <%= @restaurant.category %>
 </p>
 
+<%= simple_form_for [ @restaurant, @review ] do |f| %>
+    <%= f.input :content %>
+    <%= f.input :rating, collection: 0..5 %>
+    <%= f.submit %>
+<% end %>
+
+
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
-<%= link_to 'Back', restaurants_path %>
+<%= link_to 'Back', restaurants_path %> |
+<%= link_to 'Add Review', new_restaurant_path(@restaurant) %>
